@@ -19,9 +19,9 @@ $(function() {
   recognition.onresult = function (event) {
     let res_ja = event.results[event.results.length - 1][0].transcript
     if (event.results[event.results.length - 1]['isFinal']) {
+      $('.temp-text').text('')
       $('.res-ja').append(res_ja + '<br>')
     } else {
-      console.log(res_ja)
       $('.temp-text').text(res_ja)
     }
   }
@@ -143,6 +143,7 @@ $(function() {
     $('#step1, #step3').hide();
     $('#step2').show();
     $('#callto-id').focus();
+    recognition.stop()
   }
 
   function step3(call) {
