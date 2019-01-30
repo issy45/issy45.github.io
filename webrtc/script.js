@@ -26,8 +26,8 @@ $(function() {
     }
   }
 
-  recognition.onerror = function (event) {
-    console.log('recognition.onerror')
+  recognition.onend = function(event) {
+    recognition.start()
   }
 
   // Peer object
