@@ -18,7 +18,6 @@ $(function() {
 
   recognition.onresult = function (event) {
     let res_ja = event.results[event.results.length - 1][0].transcript
-    console.log('==================')
     if (event.results[event.results.length - 1]['isFinal']) {
       $('.res-ja').append(res_ja + '<br>')
     } else {
