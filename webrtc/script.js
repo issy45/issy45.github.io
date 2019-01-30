@@ -1,5 +1,32 @@
 /* eslint-disable require-jsdoc */
 $(function() {
+
+  // SpeechRecognition
+  var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+  var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+  var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+  let recognition = new SpeechRecognition()
+  const grammar = '#JSGF V1.0; grammar phrase;'
+  let speechRecognitionList = new SpeechGrammarList()
+
+  speechRecognitionList.addFromString(grammar, 1)
+  recognition.grammars = speechRecognitionList
+  recognition.continuous = true
+  recognition.interimResults = true
+  recognition.maxAlternatives = 1
+
+  recognition.onresult = function (event) {
+    let res_ja = event.results[event.results.length - 1][0].transcript
+    console.log('==================')
+    if (event.results[event.results.length - 1]['isFinal']) {
+      $('.res-ja').append(res_ja + '<br>')
+    } else {
+      console.log(res_ja)
+      $('.temp-text').text(res_ja)
+    }
+  }
+
   // Peer object
   const peer = new Peer({
     key: '81539926-513a-4816-ae7c-9b110b376543',
@@ -105,6 +132,8 @@ $(function() {
         existingCall.replaceStream(stream);
         return;
       }
+
+      recognition.start()
 
       step2();
     }).catch(err => {
