@@ -156,8 +156,9 @@ $(function() {
       const el = $('#their-video').get(0);
       el.srcObject = stream;
       el.play();
-      recognition.start()
     });
+
+    recognition.start()
 
     // UI stuff
     existingCall = call;
