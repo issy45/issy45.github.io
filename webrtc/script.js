@@ -27,9 +27,7 @@ $(function() {
   }
 
   recognition.onerror = function (event) {
-    console.log(event)
-    recognition.stop()
-    setTimeout(recognition.start(), 2000)
+    console.log('recognition.onerror')
   }
 
   // Peer object
