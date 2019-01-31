@@ -71,7 +71,8 @@ $(function() {
       audioSelect.on('change', step1);
     });
 
-  const roomName = 'hoge'
+  const query = getUrlVars()
+  const roomName = query['room']
   if (!roomName) {
     return
   }
@@ -196,5 +197,16 @@ $(function() {
         $('.res-ja').append('<div><span class="peer">' + message.src + '</span>: ' + message.data + '</div>');
       }
     });
+  }
+
+  function getUrlVars() {
+      let vars = []
+      const hash  = window.location.search.slice(1).split('&');
+      for (var i = 0; i < hash.length; i++) {
+          const array = hash[i].split('=')
+          vars[array[0]] = array[1]
+      }
+
+      return vars
   }
 });
