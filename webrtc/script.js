@@ -1,5 +1,20 @@
 $(function() {
 
+  // SpeechRecognition
+  var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+  var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+  var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+  let recognition = new SpeechRecognition()
+  const grammar = '#JSGF V1.0; grammar phrase;'
+  let speechRecognitionList = new SpeechGrammarList()
+
+  speechRecognitionList.addFromString(grammar, 1)
+  recognition.grammars = speechRecognitionList
+  recognition.continuous = true
+  recognition.interimResults = true
+  recognition.maxAlternatives = 1
+
   let localStream
 
   const peer = new Peer({
@@ -56,7 +71,7 @@ $(function() {
       audioSelect.on('change', step1);
     });
 
-  const roomName = location.pathname
+  const roomName = 'hoge'
   if (!roomName) {
     return
   }
@@ -65,21 +80,6 @@ $(function() {
     connect(room);
   });
   step3(room);
-
-  // SpeechRecognition
-  var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-  var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-  var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
-
-  let recognition = new SpeechRecognition()
-  const grammar = '#JSGF V1.0; grammar phrase;'
-  let speechRecognitionList = new SpeechGrammarList()
-
-  speechRecognitionList.addFromString(grammar, 1)
-  recognition.grammars = speechRecognitionList
-  recognition.continuous = true
-  recognition.interimResults = true
-  recognition.maxAlternatives = 1
 
   recognition.onresult = function (event) {
     let res_ja = event.results[event.results.length - 1][0].transcript
@@ -124,9 +124,6 @@ $(function() {
 
   function step2() {
     $('#their-videos').empty();
-    $('#step1, #step3').hide();
-    $('#step2').show();
-    $('#join-room').focus();
     recognition.stop()
   }
 
