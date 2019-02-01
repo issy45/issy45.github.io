@@ -2,33 +2,42 @@
 <head>
   <meta charset="utf-8">
   <title>SkyWay - Video chat example</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-<div class="pure-g">
-
-  <!-- Video area -->
-  <div class="pure-u-2-3" id="video-container">
-    <div id="their-videos"></div>
-    <div>
-      <label id="my-label"></label>
-      <video id="my-video" muted="true" autoplay playsinline></video>
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">ビデオチャット</span>
+  </nav>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="main col-9">
+        <div id="their-videos"></div>
+        <div>
+          <label id="my-label"></label>
+          <video id="my-video" muted="true" autoplay playsinline></video>
+        </div>
+      </div>
+      <div class="main col-3">
+        <div id="app">
+          <div class="main-comments card" ref="comments">
+            <div class="main-comments-list list-group list-group-flush">
+              <div class="list-group-item" v-for="message in messages" :key="message.id">
+                <span class="font-weight-bold">{{ message.peer }}</span><span class="ml-4">{{ message.time | moment }}</span><br>{{ message.comment }}
+              </div>
+              <div class="list-group-item temp-text">
+                temp_message!!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- Steps -->
-  <div class="pure-u-1-3">
-    <h2>SkyWay Video Chat</h2>
-    <div id="text">
-    </div>
-    <span class="temp-text">
-    </span>
-  </div>
-</div>
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ja.js"></script>
   <script type="text/javascript" src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
   <script type="text/javascript" src="script.js"></script>
 </body>

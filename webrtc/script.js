@@ -1,6 +1,25 @@
 /* eslint-disable require-jsdoc */
 $(function() {
 
+  const query = getUrlVars()
+  const roomName = query['room']
+  if (!roomName) {
+    return
+  }
+
+  let app = new Vue({
+    el: '#app',
+    data: {
+      messages: [],
+      roomName: roomName
+    },
+    filters: {
+      moment: function (date) {
+        return '2/1 15:32';
+      }
+    }
+  })
+
   // SpeechRecognition
   var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
   var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
@@ -16,12 +35,6 @@ $(function() {
   recognition.continuous = true
   recognition.interimResults = true
   recognition.maxAlternatives = 1
-
-  const query = getUrlVars()
-  const roomName = query['room']
-  if (!roomName) {
-    return
-  }
 
   const peer = new Peer({
     key: '81539926-513a-4816-ae7c-9b110b376543',
@@ -54,7 +67,7 @@ $(function() {
       })
       .then(() => {
         room.on('data', message => {
-          $('#text').append(message.data)
+          app.messages.push({peer: message.src, time: '', comment: message.data})
         })
         room.on('peerLeave', peerId => {
           $('.video_' + peerId).remove();
@@ -75,13 +88,14 @@ $(function() {
         recognition.start()
 
         recognition.onresult = function (event) {
-          let res_ja = event.results[event.results.length - 1][0].transcript
+          let comment = event.results[event.results.length - 1][0].transcript
           if (event.results[event.results.length - 1]['isFinal']) {
             $('.temp-text').text('')
-            $('#text').append(res_ja + '。<br>')
-            room.send(res_ja + '。<br>')
+            app.messages.push({peer: message.src, time: '', comment: comment})
+            $('#text').append(comment + '。<br>')
+            room.send(comment + '。<br>')
           } else {
-            $('.temp-text').text(res_ja)
+            $('.temp-text').text(comment)
           }
         }
 
