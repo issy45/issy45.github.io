@@ -54,7 +54,6 @@ $(function() {
       })
       .then(() => {
         room.on('data', message => {
-          console.log(message.data)
           $('#text').append(message.data)
         })
         room.on('peerLeave', peerId => {
@@ -80,7 +79,7 @@ $(function() {
           if (event.results[event.results.length - 1]['isFinal']) {
             $('.temp-text').text('')
             $('#text').append(res_ja + '。<br>')
-            room.send(res_ja)
+            room.send(res_ja + '。<br>')
           } else {
             $('.temp-text').text(res_ja)
           }
