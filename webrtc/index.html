@@ -16,9 +16,9 @@
         <div id="their-videos"></div>
       </div>
       <div class="main col-3">
+        <video id="my-video" muted="true" autoplay playsinline></video>
         <div id="app">
           <div class="main-comments card" ref="comments">
-            <video id="my-video" muted="true" autoplay playsinline></video>
             <div class="main-comments-list list-group list-group-flush">
               <div class="list-group-item" v-for="message in messages" :key="message.id">
                 <span class="font-weight-bold">{{ message.peer }}</span><span class="ml-4">{{ message.time | moment }}</span><br>{{ message.comment }}
