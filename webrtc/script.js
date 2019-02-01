@@ -67,7 +67,7 @@ $(function() {
       })
       .then(() => {
         room.on('data', message => {
-          app.messages.push({peer: message.src, time: '', comment: message.data})
+          app.messages.push({peer: message.src, time: message.data.time, comment: message.data.comment})
         })
         room.on('peerLeave', peerId => {
           $('.video_' + peerId).remove();
@@ -91,8 +91,7 @@ $(function() {
           let comment = event.results[event.results.length - 1][0].transcript
           if (event.results[event.results.length - 1]['isFinal']) {
             $('.temp-text').text('')
-            app.messages.push({peer: message.src, time: '', comment: comment})
-            $('#text').append(comment + '。<br>')
+            app.messages.push({peer: 'me', time: '', comment: comment})
             room.send(comment + '。<br>')
           } else {
             $('.temp-text').text(comment)
