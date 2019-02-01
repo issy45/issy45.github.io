@@ -9,6 +9,7 @@ $(function() {
   let speechRecognitionList = new SpeechGrammarList()
   speechRecognitionList.addFromString('#JSGF V1.0; grammar phrase;', 1)
   recognition.grammars = speechRecognitionList
+  recognition.lang = 'ja-JP'
   recognition.continuous = true
   recognition.interimResults = true
   recognition.maxAlternatives = 1
