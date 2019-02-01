@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 $(function() {
 
   // SpeechRecognition
@@ -6,10 +7,11 @@ $(function() {
   var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 
   let recognition = new SpeechRecognition()
+  const grammar = '#JSGF V1.0; grammar phrase;'
   let speechRecognitionList = new SpeechGrammarList()
-  speechRecognitionList.addFromString('#JSGF V1.0; grammar phrase;', 1)
+
+  speechRecognitionList.addFromString(grammar, 1)
   recognition.grammars = speechRecognitionList
-  recognition.lang = 'ja-JP'
   recognition.continuous = true
   recognition.interimResults = true
   recognition.maxAlternatives = 1
@@ -41,8 +43,6 @@ $(function() {
     debug: 2,
   })
 
-  let room
-
   peer.on('open', () => {
     $('#my-id').text(peer.id);
     let audioSource, videoSource
@@ -60,6 +60,8 @@ $(function() {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
       video: {deviceId: videoSource ? {exact: videoSource} : undefined},
     }
+
+    let room
     navigator.mediaDevices.getUserMedia(constraints)
       .then(stream => {
         $('#my-video').get(0).srcObject = stream
