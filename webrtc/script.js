@@ -17,22 +17,6 @@ $(function() {
   recognition.interimResults = true
   recognition.maxAlternatives = 1
 
-  recognition.onresult = function (event) {
-    let res_ja = event.results[event.results.length - 1][0].transcript
-    if (event.results[event.results.length - 1]['isFinal']) {
-      $('.temp-text').text('')
-      $('#text').append(res_ja + '。<br>')
-      room.send(res_ja)
-    } else {
-      $('.temp-text').text(res_ja)
-    }
-  }
-
-  recognition.onend = function(event) {
-    recognition.start()
-  }
-
-
   const query = getUrlVars()
   const roomName = query['room']
   if (!roomName) {
@@ -70,6 +54,7 @@ $(function() {
       })
       .then(() => {
         room.on('data', message => {
+          console.log(message.data)
           $('#text').append(message.data)
         })
         room.on('peerLeave', peerId => {
@@ -89,6 +74,21 @@ $(function() {
         })
 
         recognition.start()
+
+        recognition.onresult = function (event) {
+          let res_ja = event.results[event.results.length - 1][0].transcript
+          if (event.results[event.results.length - 1]['isFinal']) {
+            $('.temp-text').text('')
+            $('#text').append(res_ja + '。<br>')
+            room.send(res_ja)
+          } else {
+            $('.temp-text').text(res_ja)
+          }
+        }
+
+        recognition.onend = function(event) {
+          recognition.start()
+        }
       })
   })
 
