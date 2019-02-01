@@ -92,7 +92,7 @@ $(function() {
           if (event.results[event.results.length - 1]['isFinal']) {
             $('.temp-text').text('')
             app.messages.push({peer: 'me', time: '', comment: comment})
-            room.send(comment + '。<br>')
+            room.send({time: '', comment: comment})
           } else {
             $('.temp-text').text(comment)
           }
