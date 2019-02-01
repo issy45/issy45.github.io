@@ -12,6 +12,7 @@ $(function() {
 
   speechRecognitionList.addFromString(grammar, 1)
   recognition.grammars = speechRecognitionList
+  recognition.lang = 'ja-JP'
   recognition.continuous = true
   recognition.interimResults = true
   recognition.maxAlternatives = 1
