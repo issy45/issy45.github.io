@@ -47,10 +47,10 @@ $(function() {
     let audioSource, videoSource
     navigator.mediaDevices.enumerateDevices().then(deviceInfos => {
       for (let i = 0; i !== deviceInfos.length; ++i) {
-        if (audioSource === undefined && deviceInfo.kind === 'audioinput') {
-          audioSource = deviceInfo.deviceId;
-        } else if (videoSource === undefined && deviceInfo.kind === 'videoinput') {
-          videoSource = deviceInfo.deviceId;
+        if (audioSource === undefined && deviceInfos[i].kind === 'audioinput') {
+          audioSource = deviceInfos[i].deviceId;
+        } else if (videoSource === undefined && deviceInfos[i].kind === 'videoinput') {
+          videoSource = deviceInfos[i].deviceId;
         }
       }
     })
@@ -82,8 +82,6 @@ $(function() {
           const el = $('#' + id).find('video').get(0)
           el.srcObject = stream
           el.play()
-        }).catch(err => {
-          console.error(err)
         })
 
         recognition.start()
