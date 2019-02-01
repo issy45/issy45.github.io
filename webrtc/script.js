@@ -10,12 +10,12 @@ $(function() {
   let app = new Vue({
     el: '#app',
     data: {
-      messages: [],
-      roomName: roomName
+      roomName: roomName,
+      messages: []
     },
     filters: {
-      moment: function (date) {
-        return '2/1 15:32';
+      moment: function (timestamp) {
+        return moment(timestamp).format('M/D HH:mm')
       }
     }
   })
@@ -67,7 +67,7 @@ $(function() {
       })
       .then(() => {
         room.on('data', message => {
-          app.messages.push({peer: message.src, time: message.data.time, comment: message.data.comment})
+          app.messages.push({peer: message.src, time: message.data.timestamp, comment: message.data.comment})
         })
         room.on('peerLeave', peerId => {
           $('.video_' + peerId).remove();
@@ -91,8 +91,8 @@ $(function() {
           let comment = event.results[event.results.length - 1][0].transcript
           if (event.results[event.results.length - 1]['isFinal']) {
             $('.temp-text').text('')
-            app.messages.push({peer: 'me', time: '', comment: comment})
-            room.send({time: '', comment: comment})
+            app.messages.push({peer: 'me', timestamp: new Date().getTime(), comment: comment})
+            room.send({timestamp: new Date().getTime(), comment: comment})
           } else {
             $('.temp-text').text(comment)
           }

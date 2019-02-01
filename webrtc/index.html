@@ -14,17 +14,18 @@
     <div class="row">
       <div class="main col-9">
         <div id="their-videos"></div>
+        <div>
+          <video id="my-video" muted="true" autoplay playsinline></video>
+        </div>
       </div>
       <div class="main col-3">
-        <video id="my-video" muted="true" autoplay playsinline></video>
         <div id="app">
           <div class="main-comments card" ref="comments">
             <div class="main-comments-list list-group list-group-flush">
               <div class="list-group-item" v-for="message in messages" :key="message.id">
-                <span class="font-weight-bold">{{ message.peer }}</span><span class="ml-4">{{ message.time | moment }}</span><br>{{ message.comment }}
+                <span class="font-weight-bold">{{ message.peer }}</span><span class="ml-4">{{ message.timestamp | moment }}</span><br>{{ message.comment }}
               </div>
               <div class="list-group-item temp-text">
-                temp_message!!
               </div>
             </div>
           </div>
@@ -34,6 +35,8 @@
   </div>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ja.js"></script>
   <script type="text/javascript" src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
   <script type="text/javascript" src="script.js"></script>
 </body>
