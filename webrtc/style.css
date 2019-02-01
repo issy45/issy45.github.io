@@ -29,6 +29,7 @@
   width: 280px;
   height: auto;
   background-color: #eee;
+  transform: scale(-1, 1);
 }
 
 .remoteVideos {
