@@ -23,3 +23,17 @@
 
 .temp-text {
 }
+
+#my-video {
+  margin-top: 15px;
+  width: 280px;
+  height: auto;
+  background-color: #eee;
+}
+
+.remoteVideos {
+  width: 100%;
+  height: 75%;
+  max-height: 480px;
+  background-color: #eee;
+}
